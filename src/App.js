@@ -14,29 +14,44 @@ class App extends Component {
     {title: 'Vasiliki beach', location: {lat: 38.6286429, lng: 20.606477799999993}},
     {title: 'Agios Nikitas', location: {lat: 38.790081, lng: 20.613406}}
   ];
-    let markers = [];
-    for (let beach of beaches) {
-      let marker = new window.google.maps.Marker({
-        position: beach.location,
-        map: map,
-        title: beach.title,
-        // Create a drop marker effect
-        animation: window.google.maps.Animation.DROP
+  let markers = [];
+  let infoWindow = new window.google.maps.InfoWindow();
+  for (let beach of beaches) {
+    let marker = new window.google.maps.Marker({
+      position: beach.location,
+      map: map,
+      title: beach.title,
+      // Create a drop marker effect
+      animation: window.google.maps.Animation.DROP
+    });
+    markers.push(marker);
+    marker.addListener('click', function() {
+      if (infoWindow.marker != marker) {
+        infoWindow.marker = marker;
+        infoWindow.setContent(`<div> <span>${marker.title}</span> <button> View photos </button>
+      </div>`);
+      infoWindow.open(map, marker);
+      // Make sure the marker property is cleared if the infowindow is closed.
+      infoWindow.addListener('closeclick', function() {
+        infoWindow.setMarker = null;
       });
-      markers.push(marker);
     }
-  }
-  componentDidMount() {
-    this.initMap()
-  }
-  render() {
-    return (
-      <div className="App">
+  });
+}
+}
+componentDidMount() {
+  this.initMap()
+}
+render() {
+  return (
+    <div className="App">
+      <section id="map-container">
         <div id="map" style={{height:"100vh"}}>
         </div>
-      </div>
-    );
-  }
+      </section>
+    </div>
+  );
+}
 }
 
 export default App;
