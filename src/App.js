@@ -25,19 +25,31 @@ class App extends Component {
       animation: window.google.maps.Animation.DROP
     });
     markers.push(marker);
-    marker.addListener('click', function() {
+    marker.addListener('click', function(e) {
       if (infoWindow.marker != marker) {
         infoWindow.marker = marker;
         infoWindow.setContent(`<div> ${marker.title} <button id="photos-link"> View photos </button> </div>`);
         infoWindow.open(map, marker);
         // Make sure the marker property is cleared if the infowindow is closed.
         document.getElementById("photos-link").addEventListener("click", function() {
-          fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=3bd8de1ce2793b4ba8490432d354ac66&lat=${marker.position.lat}
-            &lon=${marker.position.lng}&format=rest&api_sig=f34d2e0776e1ccc3fded4bffffd02839`).then(function(res) {
-              console.log(res)
-            }).catch(function(err) {
-              console.log(err)
+          let link = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=911c62c629d98fecf133cfd2509c9a57&lat=${beach.location.lat}&lon=${beach.location.lng}&radius=1&radius_units=km&extras=Egremni&per_page=10&format=json&nojsoncallback=1`
+          fetch(link).then(function(res) {
+            res.json().then(function(parsed) {
+              console.log(parsed)
+              // Create flickr image link method from https://stackoverflow.com/questions/43703296/use-json-output-from-flickr-to-display-images-from-search
+              let _s = parsed.photos.photo;
+              for (let z = 0; z < parsed.photos.photo.length; z++)
+              {
+                let CurrentPhotoUrl = 'https://farm'+_s[z]['farm']+'.staticflickr.com/'+_s[z]['server']+'/'+_s[z]['id']+'_'+_s[z]['secret']+'_n.jpg'
+                console.log(CurrentPhotoUrl)
+              }
             })
+
+            //x is the json returned from the url.
+
+          }).catch(function(err) {
+            console.log(err)
+          })
         })
         infoWindow.addListener('closeclick', function() {
           infoWindow.setMarker = null;
