@@ -32,7 +32,12 @@ class App extends Component {
         infoWindow.open(map, marker);
         // Make sure the marker property is cleared if the infowindow is closed.
         document.getElementById("photos-link").addEventListener("click", function() {
-          console.log("clicked")
+          fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=3bd8de1ce2793b4ba8490432d354ac66&lat=${marker.position.lat}
+            &lon=${marker.position.lng}&format=rest&api_sig=f34d2e0776e1ccc3fded4bffffd02839`).then(function(res) {
+              console.log(res)
+            }).catch(function(err) {
+              console.log(err)
+            })
         })
         infoWindow.addListener('closeclick', function() {
           infoWindow.setMarker = null;
