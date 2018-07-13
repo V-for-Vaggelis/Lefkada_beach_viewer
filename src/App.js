@@ -28,16 +28,21 @@ class App extends Component {
     marker.addListener('click', function() {
       if (infoWindow.marker != marker) {
         infoWindow.marker = marker;
-        infoWindow.setContent(`<div> <span>${marker.title}</span> <button> View photos </button>
-      </div>`);
-      infoWindow.open(map, marker);
-      // Make sure the marker property is cleared if the infowindow is closed.
-      infoWindow.addListener('closeclick', function() {
-        infoWindow.setMarker = null;
-      });
-    }
-  });
+        infoWindow.setContent(`<div> ${marker.title} <button id="photos-link"> View photos </button> </div>`);
+        infoWindow.open(map, marker);
+        // Make sure the marker property is cleared if the infowindow is closed.
+        document.getElementById("photos-link").addEventListener("click", function() {
+          console.log("clicked")
+        })
+        infoWindow.addListener('closeclick', function() {
+          infoWindow.setMarker = null;
+        });
+      }
+    });
+  }
 }
+showPhotos = () => {
+  console.log("click")
 }
 componentDidMount() {
   this.initMap()
@@ -46,7 +51,7 @@ render() {
   return (
     <div className="App">
       <section id="map-container">
-        <div id="map" style={{height:"100vh"}}>
+        <div id="map" role="application" style={{height:"100vh"}}>
         </div>
       </section>
     </div>
