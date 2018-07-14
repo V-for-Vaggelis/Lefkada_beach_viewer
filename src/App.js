@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import ShowModal from './components/Modal'
 
+
 class App extends Component {
   state = {
     modal: false,
