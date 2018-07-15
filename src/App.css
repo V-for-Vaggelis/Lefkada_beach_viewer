@@ -22,6 +22,18 @@
   font-size: large;
 }
 
+#flickr-link {
+  color: white;
+}
+
+#flickr-link:hover {
+  font-weight: bold;
+}
+
+#caption {
+  padding: 10%;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

@@ -44,7 +44,7 @@ class App extends Component {
           if (photos.length > 0) {
             photos = []
           }
-          let link = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0f97455aeea8de971ec02dc9714816d4&lat=${beach.location.lat}&lon=${beach.location.lng}&radius=1&radius_units=km&per_page=10&format=json&nojsoncallback=1`
+          let link = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0f97455aeea8de971ec02dc9714816d4&lat=${beach.location.lat}&lon=${beach.location.lng}&radius=0.2&radius_units=km&per_page=20&format=json&nojsoncallback=1`
           fetch(link).then(function(res) {
             res.json().then(function(parsed) {
               console.log(parsed)
@@ -55,24 +55,25 @@ class App extends Component {
                 let currentPhotoUrl = 'https://farm'+_s[z]['farm']+'.staticflickr.com/'+_s[z]['server']+'/'+_s[z]['id']+'_'+_s[z]['secret']+'_n.jpg'
 
                 // console.log(currentPhotoUrl)
-                let pic = {alt: beach.title, url: currentPhotoUrl}
+                let pic = {alt: `A photo of ${beach.title} in Leukada`, url: currentPhotoUrl}
                 photos.push(pic)
               }
-            })
-            app.setState(() => ({
+            }).then(() =>
+            this.setState(() => ({
               pictures: photos,
               modal: true
-            })
-          )
-        }).catch(function(err) {
-          console.log(err)
-        })
+            }))
+          );
+        }.bind(app)
+      ).catch(function(err) {
+        console.log(err)
       })
-      infoWindow.addListener('closeclick', function() {
-        infoWindow.setMarker = null;
-      });
-    }
-  });
+    })
+    infoWindow.addListener('closeclick', function() {
+      infoWindow.setMarker = null;
+    });
+  }
+});
 }
 }
 hideModal = () => {
