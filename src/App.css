@@ -34,6 +34,26 @@
   padding: 10%;
 }
 
+main {
+  display: flex;
+  width: 100%;
+}
+
+#filter-container {
+  width: 10%;
+  padding-right: 1%;
+  padding-left: 1%;
+  background-color: grey;
+}
+
+#map-container {
+  width: 90%;
+}
+
+#map {
+  width: 100%;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
