@@ -54,6 +54,16 @@ main {
   width: 100%;
 }
 
+#map-fail {
+  font-size: 1.5em;
+}
+
+#sad-face {
+  padding-top: 30vh;
+  font-size: 4em;
+  display: block;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

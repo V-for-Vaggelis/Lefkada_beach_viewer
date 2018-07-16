@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import ShowModal from './components/Modal'
 import FilterOptions from './components/FilterChoices'
+import scriptLoader from 'react-async-script-loader'
 
 const beaches = [{title: 'Kathisma', location: {lat: 38.7767939, lng: 20.600207599999976}},
 {title: 'Egremni', location: {lat: 38.6374903, lng: 20.558387700000026}},
@@ -16,7 +17,8 @@ class App extends Component {
     modal: false,
     pictures: [],
     markers: [],
-    map: ''
+    map: '',
+    scriptFail: false
   }
   initMap = () => {
     let app = this;
@@ -117,25 +119,39 @@ filterLocation = (locationName) => {
   }
 }
 
-componentDidMount() {
-  this.initMap()
+
+// Async load map idea from https://stackoverflow.com/questions/41709765/how-to-load-the-google-maps-api-script-in-my-react-app-only-when-it-is-require
+componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
+  if (isScriptLoaded && !this.props.isScriptLoaded) { // load finished
+    if (isScriptLoadSucceed) {
+      this.initMap()
+    }
+    else {
+      this.state.scriptFail = true
+    }
+  }
 }
+
 render() {
   return (
     <div className="App">
-      {this.state.modal === true && (<ShowModal closeModal={this.hideModal} showInfo={this.state.modal} picsToRender={this.state.pictures}/>)}
+      {this.state.modal && (<ShowModal closeModal={this.hideModal} showInfo={this.state.modal} picsToRender={this.state.pictures}/>)}
       <main>
         <aside id="filter-container">
           <FilterOptions options={beaches} applyFilter={this.filterLocation}/>
         </aside>
         <section id="map-container">
           <div id="map" role="application" style={{height:"100vh"}}>
-          </div>
-        </section>
-      </main>
-    </div>
-  )
-}
-}
+            {this.state.scriptFail && (
+              <p id="map-fail">
+                <span id="sad-face">&#x2639;</span>
+                We are sorry the map could not load for now </p>)}
+              </div>
+            </section>
+          </main>
+        </div>
+      )
+    }
+  }
 
-export default App;
+  export default scriptLoader(['https://maps.googleapis.com/maps/api/js?key=AIzaSyCENzVbJtz4UfWe1CN0Em6l5d7IXmNfAM8&libraries=places'])(App)
