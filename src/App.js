@@ -15,7 +15,8 @@ class App extends Component {
   state = {
     modal: false,
     pictures: [],
-    markers: []
+    markers: [],
+    map: ''
   }
   initMap = () => {
     let app = this;
@@ -78,7 +79,8 @@ class App extends Component {
   });
 }
 this.setState(() => ({
-  markers: markers
+  markers: markers,
+  map: map
 }))
 }
 
@@ -92,10 +94,15 @@ filterLocation = (locationName) => {
   let markers = this.state.markers
   for (let marker of markers) {
     if (marker.title === locationName) {
+      // If location was filtered out, this will show it again
+      marker.setMap(this.state.map)
       marker.setAnimation(window.google.maps.Animation.BOUNCE);
       setTimeout(function () {
         marker.setAnimation(null);
-      }, 800);
+      }, 600);
+    }
+    else {
+      marker.setMap(null)
     }
   }
 }
