@@ -7,7 +7,7 @@ function FilterOptions (props)  {
     <ButtonGroup vertical>
     {props.options.map((option) => {
       return (
-        <Button key={option.title}>{option.title}</Button>
+        <Button key={option.title} value={option.title} onClick={() => props.applyFilter(option.title)}>{option.title}</Button>
       )
     })}
     </ButtonGroup>

@@ -14,7 +14,8 @@ const beaches = [{title: 'Kathisma', location: {lat: 38.7767939, lng: 20.6002075
 class App extends Component {
   state = {
     modal: false,
-    pictures: []
+    pictures: [],
+    markers: []
   }
   initMap = () => {
     let app = this;
@@ -22,7 +23,6 @@ class App extends Component {
       center: {lat: 38.7066464, lng: 20.640729999999962},
       zoom: 11
     });
-
     let markers = [];
     let photos = [];
     let infoWindow = new window.google.maps.InfoWindow();
@@ -77,11 +77,27 @@ class App extends Component {
     }
   });
 }
+this.setState(() => ({
+  markers: markers
+}))
 }
+
 hideModal = () => {
   this.setState(() => ({
     modal: false
   }))
+}
+
+filterLocation = (locationName) => {
+  let markers = this.state.markers
+  for (let marker of markers) {
+    if (marker.title === locationName) {
+      marker.setAnimation(window.google.maps.Animation.BOUNCE);
+      setTimeout(function () {
+        marker.setAnimation(null);
+      }, 800);
+    }
+  }
 }
 componentDidMount() {
   this.initMap()
@@ -92,7 +108,7 @@ render() {
       {this.state.modal === true && (<ShowModal closeModal={this.hideModal} showInfo={this.state.modal} picsToRender={this.state.pictures}/>)}
       <main>
         <aside id="filter-container">
-          <FilterOptions options={beaches}/>
+          <FilterOptions options={beaches} applyFilter={this.filterLocation}/>
         </aside>
         <section id="map-container">
           <div id="map" role="application" style={{height:"100vh"}}>
