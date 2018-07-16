@@ -82,7 +82,7 @@ class App extends Component {
         );
       }.bind(app)
     ).catch(function(err) {
-      console.log(err)
+      alert("We are sorry something went wrong")
     })
   })
   infoWindow.addListener('closeclick', function() {
