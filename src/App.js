@@ -54,10 +54,10 @@ class App extends Component {
                 let _s = parsed.photos.photo;
                 for (let z = 0; z < parsed.photos.photo.length; z++)
                 {
-                  let currentPhotoUrl = 'https://farm'+_s[z]['farm']+'.staticflickr.com/'+_s[z]['server']+'/'+_s[z]['id']+'_'+_s[z]['secret']+'_n.jpg'
+                  let currentPhotoUrl = 'https://farm'+_s[z]['farm']+'.staticflickr.com/'+_s[z]['server']+'/'+_s[z]['id']+'_'+_s[z]['secret']+'_z.jpg'
 
                   // console.log(currentPhotoUrl)
-                  let pic = {alt: `A photo of ${beach.title} in Leukada`, url: currentPhotoUrl}
+                  let pic = {alt: `A photo of ${beach.title} in Lefkada`, url: currentPhotoUrl}
                   photos.push(pic)
                 }
               }).then(() =>
