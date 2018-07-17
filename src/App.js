@@ -13,7 +13,8 @@ class App extends Component {
     markers: [],
     map: '',
     scriptFail: false,
-    place: ""
+    place: "",
+    infoWindow: ''
   }
   initMap = () => {
     let app = this;
@@ -39,7 +40,8 @@ class App extends Component {
     }
     this.setState(() => ({
       markers: markers,
-      map: map
+      map: map,
+      infoWindow: infoWindow
     }))
   }
 
@@ -102,7 +104,7 @@ class App extends Component {
 
   filterLocation = (locationName) => {
     let markers = this.state.markers
-    let infoWindow = new window.google.maps.InfoWindow();
+    let infoWindow = this.state.infoWindow;
     let app = this;
     for (let marker of markers) {
       if (marker.title === locationName) {
