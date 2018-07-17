@@ -18,7 +18,8 @@ class App extends Component {
     pictures: [],
     markers: [],
     map: '',
-    scriptFail: false
+    scriptFail: false,
+    place: ""
   }
   initMap = () => {
     let app = this;
@@ -57,101 +58,109 @@ class App extends Component {
       infoWindow.open(map, marker);
       // Make sure the marker property is cleared if the infowindow is closed.
       document.getElementById("photos-link").addEventListener("click", function() {
-        if (photos.length > 0) {
-          photos = []
-        }
-        let link = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0f97455aeea8de971ec02dc9714816d4&lat=${beach.location.lat}&lon=${beach.location.lng}&radius=0.2&radius_units=km&per_page=20&format=json&nojsoncallback=1`
-        fetch(link).then(function(res) {
-          res.json().then(function(parsed) {
-            console.log(parsed)
-            // Create flickr image link method from https://stackoverflow.com/questions/43703296/use-json-output-from-flickr-to-display-images-from-search
-            let _s = parsed.photos.photo;
-            for (let z = 0; z < parsed.photos.photo.length; z++)
-            {
-              let currentPhotoUrl = 'https://farm'+_s[z]['farm']+'.staticflickr.com/'+_s[z]['server']+'/'+_s[z]['id']+'_'+_s[z]['secret']+'_z.jpg'
-
-              // console.log(currentPhotoUrl)
-              let pic = {alt: `A photo of ${marker.title} in Lefkada`, url: currentPhotoUrl}
-              photos.push(pic)
-            }
-          }).then(() =>
-          this.setState(() => ({
-            pictures: photos,
-            modal: true
-          }))
-        );
-      }.bind(app)
-    ).catch(function(err) {
-      alert("We are sorry something went wrong")
-    })
-  })
-  infoWindow.addListener('closeclick', function() {
-    infoWindow.setMarker = null;
-  });
-}
-}
-
-hideModal = () => {
-  this.setState(() => ({
-    modal: false
-  }))
-}
-
-filterLocation = (locationName) => {
-  let markers = this.state.markers
-  let infoWindow = new window.google.maps.InfoWindow();
-  let app = this;
-  for (let marker of markers) {
-    if (marker.title === locationName) {
-      // If location was filtered out, this will show it again
-      marker.setMap(this.state.map)
-      marker.setAnimation(window.google.maps.Animation.BOUNCE);
-      setTimeout(function () {
-        marker.setAnimation(null);
-        let beach = beaches.filter((b) => b.title === locationName)
-        console.log(beach)
-        app.createInfoWindow(marker, infoWindow, app.state.map, beach[0]);
-      }, 600);
+        if (typeof(Storage) && localStorage[beach.title]) {
+          let links = localStorage[beach.title].split(",");
+          app.setState(() => ({
+            pictures: links,
+            modal: true,
+            place: beach.title}));
+            return;
+          }
+          if (photos.length > 0) {
+            photos = []
+          }
+          let link = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0f97455aeea8de971ec02dc9714816d4&lat=${beach.location.lat}&lon=${beach.location.lng}&radius=0.2&radius_units=km&per_page=20&format=json&nojsoncallback=1`
+          fetch(link).then(function(res) {
+            res.json().then(function(parsed) {
+              console.log(parsed)
+              // Create flickr image link method from https://stackoverflow.com/questions/43703296/use-json-output-from-flickr-to-display-images-from-search
+              let _s = parsed.photos.photo;
+              for (let z = 0; z < parsed.photos.photo.length; z++)
+              {
+                let currentPhotoUrl = 'https://farm'+_s[z]['farm']+'.staticflickr.com/'+_s[z]['server']+'/'+_s[z]['id']+'_'+_s[z]['secret']+'_z.jpg'
+                photos.push(currentPhotoUrl)
+              }
+              return photos;
+            }).then((photos) => {
+              localStorage.setItem(beach.title, photos);
+              app.setState(() => ({
+                pictures: photos,
+                modal: true,
+                place: beach.title
+              }));
+            });
+          }
+        ).catch(function(err) {
+          alert("We are sorry something went wrong")
+        })
+      })
+      infoWindow.addListener('closeclick', function() {
+        infoWindow.setMarker = null;
+      });
     }
-    else {
+  }
+
+  hideModal = () => {
+    this.setState(() => ({
+      modal: false
+    }))
+  }
+
+  filterLocation = (locationName) => {
+    let markers = this.state.markers
+    let infoWindow = new window.google.maps.InfoWindow();
+    let app = this;
+    for (let marker of markers) {
+      if (marker.title === locationName) {
+        // If location was filtered out, this will show it again
+        marker.setMap(this.state.map)
+        marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        setTimeout(function () {
+          marker.setAnimation(null);
+          let beach = beaches.filter((b) => b.title === locationName)
+          console.log(beach)
+          app.createInfoWindow(marker, infoWindow, app.state.map, beach[0]);
+        }, 600);
+      }
+      /*else {
       marker.setMap(null)
-    }
-  }
-}
-
-
-// Async load map idea from https://stackoverflow.com/questions/41709765/how-to-load-the-google-maps-api-script-in-my-react-app-only-when-it-is-require
-componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
-  if (isScriptLoaded && !this.props.isScriptLoaded) { // load finished
-    if (isScriptLoadSucceed) {
-      this.initMap()
-    }
-    else {
-      this.state.scriptFail = true
-    }
-  }
-}
-
-render() {
-  return (
-    <div className="App">
-      {this.state.modal && (<ShowModal closeModal={this.hideModal} showInfo={this.state.modal} picsToRender={this.state.pictures}/>)}
-      <main>
-        <aside id="filter-container">
-          <FilterOptions options={beaches} applyFilter={this.filterLocation}/>
-        </aside>
-        <section id="map-container">
-          <div id="map" role="application" style={{height:"100vh"}}>
-            {this.state.scriptFail && (
-              <p id="map-fail">
-                <span id="sad-face">&#x2639;</span>
-                We are sorry the map could not load for now </p>)}
-              </div>
-            </section>
-          </main>
-        </div>
-      )
+      }*/
     }
   }
 
-  export default scriptLoader(['https://maps.googleapis.com/maps/api/js?key=AIzaSyCENzVbJtz4UfWe1CN0Em6l5d7IXmNfAM8&libraries=places'])(App)
+
+  // Async load map idea from https://stackoverflow.com/questions/41709765/how-to-load-the-google-maps-api-script-in-my-react-app-only-when-it-is-require
+  componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
+    if (isScriptLoaded && !this.props.isScriptLoaded) { // load finished
+      if (isScriptLoadSucceed) {
+        this.initMap()
+      }
+      else {
+        this.state.scriptFail = true
+      }
+    }
+  }
+
+  render() {
+    return (
+      <div className="App">
+        {this.state.modal && (<ShowModal closeModal={this.hideModal} showInfo={this.state.modal} picsToRender={this.state.pictures} beach={this.state.place}/>)}
+        <main>
+          <aside id="filter-container">
+            <FilterOptions options={beaches} applyFilter={this.filterLocation}/>
+          </aside>
+          <section id="map-container">
+            <div id="map" role="application" style={{height:"100vh"}}>
+              {this.state.scriptFail && (
+                <p id="map-fail">
+                  <span id="sad-face">&#x2639;</span>
+                  We are sorry the map could not load for now </p>)}
+                </div>
+              </section>
+            </main>
+          </div>
+        )
+      }
+    }
+
+    export default scriptLoader(['https://maps.googleapis.com/maps/api/js?key=AIzaSyCENzVbJtz4UfWe1CN0Em6l5d7IXmNfAM8&libraries=places'])(App)
