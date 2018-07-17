@@ -40,14 +40,14 @@ main {
 }
 
 #filter-container {
-  width: 10%;
-  padding-right: 1%;
-  padding-left: 1%;
+  width: 15%;
   background-color: brown;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 #map-container {
-  width: 90%;
+  width: 85%;
 }
 
 #map {
