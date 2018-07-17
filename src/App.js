@@ -141,12 +141,17 @@ class App extends Component {
     return (
       <div className="App">
         {this.state.modal && (<ShowModal closeModal={this.hideModal} showInfo={this.state.modal} picsToRender={this.state.pictures} beach={this.state.place}/>)}
+        <header>
+          <h1>
+            Lefkada's beach viewer
+          </h1>
+        </header>
         <main>
           <aside id="filter-container">
             <FilterOptions options={beaches} applyFilter={this.filterLocation}/>
           </aside>
           <section id="map-container">
-            <div id="map" role="application" style={{height:"100vh"}}>
+            <div id="map" role="application" style={{height:"90vh"}}>
               {this.state.scriptFail && (
                 <p id="map-fail">
                   <span id="sad-face">&#x2639;</span>
@@ -154,6 +159,7 @@ class App extends Component {
                 </div>
               </section>
             </main>
+            <footer>Powered by <a href="https://developers.google.com/maps/documentation/javascript/tutorial">Google maps</a> and <a href="https://www.flickr.com/">Flickr.</a></footer>
           </div>
         )
       }

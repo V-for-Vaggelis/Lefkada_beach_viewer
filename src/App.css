@@ -39,17 +39,6 @@ main {
   width: 100%;
 }
 
-#filter-container {
-  width: 15%;
-  background-color: brown;
-  height: 100vh;
-  overflow-y: auto;
-}
-
-#map-container {
-  width: 85%;
-}
-
 #map {
   width: 100%;
 }
@@ -66,6 +55,46 @@ main {
 
 #flag {
   color: blue;
+}
+
+#filter-container {
+  padding-top: 6px;
+  width: 15%;
+  background:#f1e4b0;
+  overflow-y: auto;
+  height: 90vh;
+}
+
+#map-container {
+  height: 90vh;
+  width: 85%;
+}
+
+footer {
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  background-color: rgb(196, 186, 189);
+}
+
+header {
+  padding-bottom: 1.2vh;
+  padding-top: 0.7vh;
+  /* background-color: #c2b280; */
+  background: rgb(223, 153, 60);
+  font-family: 'Atomic Age', cursive;
+}
+
+.filter-button {
+  background-color: rgb(191, 247, 255);
+  font-family: 'Atomic Age', cursive;
+}
+
+.filter-button:hover {
+  background-color: rgb(32, 223, 183);
+}
+
+.filter-button:focus {
+  background-color: rgb(32, 223, 183);
 }
 
 @keyframes App-logo-spin {
