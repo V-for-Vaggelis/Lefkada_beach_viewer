@@ -6,7 +6,6 @@ import { Modal, Carousel, Image } from 'react-bootstrap';
 function ShowModal (props)  {
   return (
     <Modal show={true} onHide={props.closeModal}>
-      {console.log(props.picsToRender)}
       <Carousel>
         {props.picsToRender.map((pic) => {
           return (
