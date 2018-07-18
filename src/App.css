@@ -97,6 +97,11 @@ header {
   background-color: rgb(32, 223, 183);
 }
 
+#all-button {
+  font-family: 'Atomic Age', cursive;
+  background: coral;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

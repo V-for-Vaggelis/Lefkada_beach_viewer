@@ -118,9 +118,19 @@ class App extends Component {
           app.createInfoWindow(marker, infoWindow, app.state.map, beach[0]);
         }, 600);
       }
-      /*else {
-      marker.setMap(null)
-      }*/
+      else {
+        marker.setMap(null)
+      }
+    }
+  }
+
+  showAllMarkers = () => {
+    for (let marker of this.state.markers) {
+      marker.setMap(this.state.map)
+      marker.setAnimation(window.google.maps.Animation.BOUNCE);
+      setTimeout(function () {
+        marker.setAnimation(null);
+      }, 600);
     }
   }
 
@@ -148,7 +158,7 @@ class App extends Component {
         </header>
         <main>
           <aside id="filter-container">
-            <FilterOptions options={beaches} applyFilter={this.filterLocation}/>
+            <FilterOptions options={beaches} applyFilter={this.filterLocation} showAllBeaches={this.showAllMarkers}/>
           </aside>
           <section id="map-container">
             <div id="map" role="application" style={{height:"90vh"}}>
