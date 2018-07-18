@@ -5,6 +5,7 @@ import ShowModal from './components/Modal'
 import FilterOptions from './components/FilterChoices'
 import scriptLoader from 'react-async-script-loader'
 import beaches from './beaches.json'
+import { Glyphicon, Button } from 'react-bootstrap';
 
 class App extends Component {
   state = {
@@ -152,6 +153,9 @@ class App extends Component {
       <div className="App">
         {this.state.modal && (<ShowModal closeModal={this.hideModal} showInfo={this.state.modal} picsToRender={this.state.pictures} beach={this.state.place}/>)}
         <header>
+          <Button name="Toggle" aria-label="Toggle Side Panel" className="toggle-filters">
+            <Glyphicon glyph="menu-hamburger" />
+          </Button>
           <h1>
             Lefkada's beach viewer
           </h1>

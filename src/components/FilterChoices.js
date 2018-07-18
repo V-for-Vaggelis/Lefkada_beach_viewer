@@ -13,7 +13,7 @@ function FilterOptions (props)  {
   }
 
   return (
-    <ButtonGroup vertical>
+    <ButtonGroup id="group" vertical>
       <Button id="all-button" value="Show all" onClick={() => props.showAllBeaches()}>All beaches</Button>
     {props.options.map((option) => {
       return (

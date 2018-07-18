@@ -65,7 +65,7 @@ main {
 
 #filter-container {
   padding-top: 6px;
-  width: 15%;
+  width: 20%;
   background:#f1e4b0;
   overflow-y: auto;
   height: 90vh;
@@ -73,7 +73,7 @@ main {
 
 #map-container {
   height: 90vh;
-  width: 85%;
+  width: 80%;
 }
 
 footer {
@@ -88,6 +88,13 @@ header {
   /* background-color: #c2b280; */
   background: coral;
   font-family: 'Atomic Age', cursive;
+}
+
+.toggle-filters {
+  float: left;
+  margin-left: 5%;
+  margin-right: 2%;
+  margin-top: 8%;
 }
 
 .filter-button {
@@ -108,12 +115,52 @@ header {
   background: rgb(223, 153, 60);
 }
 
+h1 {
+  font-size: 2em;
+}
+
+@media screen and (min-width: 390px) {
+  .toggle-filters {
+    margin-top: 5%;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  h1 {
+    font-size: 2.5em;
+  }
+  .toggle-filters {
+    margin-top: 3%;
+  }
+}
+
 @media screen and (min-width: 580px) {
   #caption {
     padding: 5%;
   }
   #beach-header {
     font-size: 1.7em;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .toggle-filters {
+    margin-top: 2%;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .toggle-filters {
+    display: none;
+  }
+  h1 {
+    font-size: 3em;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #group {
+    width: 90%;
   }
 }
 
