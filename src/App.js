@@ -15,7 +15,8 @@ class App extends Component {
     map: '',
     scriptFail: false,
     place: "",
-    infoWindow: ''
+    infoWindow: '',
+    showAside: false
   }
   initMap = () => {
     let app = this;
@@ -135,6 +136,26 @@ class App extends Component {
     }
   }
 
+  toggleAside = () => {
+    (this.state.showAside ?
+      this.setState(() => ({
+        showAside: false
+      })) :
+      this.setState(() => ({
+        showAside: true
+      }))
+    )
+  }
+
+  checkAsideDisplay = () => {
+    if (this.state.showAside) {
+      return "filter-container show"
+    }
+    else {
+      return "filter-container"
+    }
+  }
+
 
   // Async load map idea from https://stackoverflow.com/questions/41709765/how-to-load-the-google-maps-api-script-in-my-react-app-only-when-it-is-require
   componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
@@ -153,7 +174,7 @@ class App extends Component {
       <div className="App">
         {this.state.modal && (<ShowModal closeModal={this.hideModal} showInfo={this.state.modal} picsToRender={this.state.pictures} beach={this.state.place}/>)}
         <header>
-          <Button name="Toggle" aria-label="Toggle Side Panel" className="toggle-filters">
+          <Button name="Toggle" aria-label="Toggle Side Panel" className="toggle-filters" onClick={() => this.toggleAside()}>
             <Glyphicon glyph="menu-hamburger" />
           </Button>
           <h1>
@@ -161,7 +182,7 @@ class App extends Component {
           </h1>
         </header>
         <main>
-          <aside id="filter-container">
+          <aside className={this.checkAsideDisplay()}>
             <FilterOptions options={beaches} applyFilter={this.filterLocation} showAllBeaches={this.showAllMarkers}/>
           </aside>
           <section id="map-container">
