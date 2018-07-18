@@ -30,8 +30,14 @@
   font-weight: bold;
 }
 
+#beach-header {
+  font-size: 1.3em;
+}
+
 #caption {
   padding: 10%;
+  color: white;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 
 main {
@@ -80,7 +86,7 @@ header {
   padding-bottom: 1.2vh;
   padding-top: 0.7vh;
   /* background-color: #c2b280; */
-  background: rgb(223, 153, 60);
+  background: coral;
   font-family: 'Atomic Age', cursive;
 }
 
@@ -99,7 +105,16 @@ header {
 
 #all-button {
   font-family: 'Atomic Age', cursive;
-  background: coral;
+  background: rgb(223, 153, 60);
+}
+
+@media screen and (min-width: 580px) {
+  #caption {
+    padding: 5%;
+  }
+  #beach-header {
+    font-size: 1.7em;
+  }
 }
 
 @keyframes App-logo-spin {
