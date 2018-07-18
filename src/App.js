@@ -52,7 +52,7 @@ class App extends Component {
     let photos = [];
     if (infoWindow.marker != marker) {
       infoWindow.marker = marker;
-      infoWindow.setContent(`<div> ${marker.title} <button id="photos-link"> View photos </button> </div>`);
+      infoWindow.setContent(`<div> ${marker.title} <Button id="photos-link"> View photos </Button> </div>`);
       infoWindow.open(map, marker);
       // Make sure the marker property is cleared if the infowindow is closed.
       document.getElementById("photos-link").addEventListener("click", function() {

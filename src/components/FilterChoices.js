@@ -13,11 +13,11 @@ function FilterOptions (props)  {
   }
 
   return (
-    <ButtonGroup id="group" vertical>
+    <ButtonGroup id="group" aria-label="Show all locations on map" vertical>
       <Button id="all-button" value="Show all" onClick={() => props.showAllBeaches()}>All beaches</Button>
     {props.options.map((option) => {
       return (
-        <Button className="filter-button" key={option.title} value={option.title} onClick={() => props.applyFilter(option.title)}>{option.title} {checkFlag(option)} </Button>
+        <Button href="#photos-link" aria-label="Filter location on map" className="filter-button" key={option.title} value={option.title} onClick={() => props.applyFilter(option.title)}>{option.title} {checkFlag(option)} </Button>
       )
     })}
     </ButtonGroup>
