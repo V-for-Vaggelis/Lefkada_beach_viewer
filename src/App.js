@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import ShowModal from './components/Modal'
 import FilterOptions from './components/FilterChoices'
@@ -26,8 +26,6 @@ class App extends Component {
       zoom: 11
     });
     let markers = [];
-    var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-    let icon = iconBase + "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjLSGHYAShdfjkluE1g1-B4_Qn_oAMyxLMfSQDbVRTqx_wwLq_JA"
     let infoWindow = new window.google.maps.InfoWindow();
     for (let beach of beaches) {
       let marker = new window.google.maps.Marker({
@@ -56,11 +54,7 @@ class App extends Component {
     service.getDetails({
       placeId: beach.placeId
     }, function(place, status) {
-      if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-        console.log(place)
-      } else {
-        console.log(status)
-      }
+      // If request fails, place will be falsy, butr we'll check for that in the function that creates the infoWindow
       app.createInfoWindow(marker, infoWindow, beach, map, place)
     }
   )
@@ -69,7 +63,7 @@ class App extends Component {
 createInfoWindow = (marker, infoWindow, beach, map, place) => {
   let app = this;
   let photos = [];
-  if (infoWindow.marker != marker) {
+  if (infoWindow.marker !== marker) {
     infoWindow.marker = marker;
     let innerHtml = '<div><h4>' + beach.title + '</h4>';
     if (place) {
@@ -100,7 +94,6 @@ createInfoWindow = (marker, infoWindow, beach, map, place) => {
           let link = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0f97455aeea8de971ec02dc9714816d4&text=sea&lat=${beach.location.lat}&lon=${beach.location.lng}&radius=0.2&radius_units=km&per_page=20&format=json&nojsoncallback=1`
           fetch(link).then(function(res) {
             res.json().then(function(parsed) {
-              console.log(parsed)
               // Create flickr image link method from https://stackoverflow.com/questions/43703296/use-json-output-from-flickr-to-display-images-from-search
               let _s = parsed.photos.photo;
               for (let z = 0; z < parsed.photos.photo.length; z++)
@@ -146,7 +139,6 @@ createInfoWindow = (marker, infoWindow, beach, map, place) => {
         setTimeout(function () {
           marker.setAnimation(null);
           let beach = beaches.filter((b) => b.title === locationName)
-          console.log(beach)
           app.getPlaceDetails(marker, infoWindow, beach[0], app.state.map);
         }, 600);
       }
@@ -194,7 +186,9 @@ createInfoWindow = (marker, infoWindow, beach, map, place) => {
         this.initMap()
       }
       else {
-        this.state.scriptFail = true
+        this.setState(() => ({
+          scriptFail: true
+        }))
       }
     }
   }

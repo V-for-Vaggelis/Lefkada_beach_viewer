@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../App.css';
 import { Modal, Carousel, Image } from 'react-bootstrap';
 
@@ -7,11 +7,10 @@ function ShowModal (props)  {
   return (
     <Modal show={true} onHide={props.closeModal}>
       <Carousel>
-        {console.log(props.picsToRender)}
         {props.picsToRender.map((pic) => {
           // just a narrow image I want to avoid
           if (pic === "https://farm3.staticflickr.com/2889/33761682621_6d48304f67_z.jpg") {
-            return
+            return ;
           }
           return (
             <Carousel.Item key={pic}>
