@@ -40,7 +40,7 @@ class App extends Component {
       });
       markers.push(marker);
       marker.addListener('click', function(e) {
-        app.createInfoWindow(marker, infoWindow, map, beach);
+        app.getPlaceDetails(marker, infoWindow, beach, map);
       })
     }
     this.setState(() => ({
@@ -50,12 +50,39 @@ class App extends Component {
     }))
   }
 
-  createInfoWindow = (marker, infoWindow, map, beach) => {
+  getPlaceDetails = (marker, infoWindow, beach, map) => {
     let app = this;
-    let photos = [];
-    if (infoWindow.marker != marker) {
-      infoWindow.marker = marker;
-      infoWindow.setContent(`<div> ${marker.title} <Button id="photos-link"> View photos </Button> </div>`);
+    let service = new window.google.maps.places.PlacesService(map);
+    service.getDetails({
+      placeId: beach.placeId
+    }, function(place, status) {
+      if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+        console.log(place)
+      } else {
+        console.log(status)
+      }
+      app.createInfoWindow(marker, infoWindow, beach, map, place)
+    }
+  )
+}
+
+createInfoWindow = (marker, infoWindow, beach, map, place) => {
+  let app = this;
+  let photos = [];
+  if (infoWindow.marker != marker) {
+    infoWindow.marker = marker;
+    let innerHtml = '<div><h4>' + beach.title + '</h4>';
+    if (place) {
+      if (place.photos) {
+        innerHtml += '<br><br><img src="' + place.photos[0].getUrl(
+          {maxHeight: 200, maxWidth: 200}) + '">';
+        }
+        if (place.rating) {
+          innerHtml += '<br><br>Rating: <strong>' + place.rating + '/5</strong>'
+        }
+      }
+      innerHtml += '<br><br><Button id="photos-link"> View photos </Button> </div>'
+      infoWindow.setContent(innerHtml);
       infoWindow.open(map, marker);
       // Make sure the marker property is cleared if the infowindow is closed.
       document.getElementById("photos-link").addEventListener("click", function() {
@@ -120,7 +147,7 @@ class App extends Component {
           marker.setAnimation(null);
           let beach = beaches.filter((b) => b.title === locationName)
           console.log(beach)
-          app.createInfoWindow(marker, infoWindow, app.state.map, beach[0]);
+          app.getPlaceDetails(marker, infoWindow, beach[0], app.state.map);
         }, 600);
       }
       else {
