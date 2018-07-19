@@ -6,6 +6,7 @@ import FilterOptions from './components/FilterChoices'
 import scriptLoader from 'react-async-script-loader'
 import beaches from './beaches.json'
 import { Glyphicon, Button } from 'react-bootstrap';
+import beachIcon from './beach.png'
 
 class App extends Component {
   state = {
@@ -25,13 +26,15 @@ class App extends Component {
       zoom: 11
     });
     let markers = [];
-
+    var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+    let icon = iconBase + "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjLSGHYAShdfjkluE1g1-B4_Qn_oAMyxLMfSQDbVRTqx_wwLq_JA"
     let infoWindow = new window.google.maps.InfoWindow();
     for (let beach of beaches) {
       let marker = new window.google.maps.Marker({
         position: beach.location,
         map: map,
         title: beach.title,
+        icon: beachIcon,
         // Create a drop marker effect
         animation: window.google.maps.Animation.DROP
       });
