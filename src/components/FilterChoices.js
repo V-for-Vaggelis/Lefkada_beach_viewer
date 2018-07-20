@@ -3,6 +3,7 @@ import '../App.css';
 import { ButtonGroup, Button } from 'react-bootstrap';
 
 function FilterOptions (props)  {
+  // Adds a blue flag to rewarded beaches
   let checkFlag = (val) => {
     if (val.flag) {
       return (<span id='flag'>&#9873;</span>)
@@ -17,7 +18,8 @@ function FilterOptions (props)  {
       <Button id="all-button" value="Show all" onClick={() => props.showAllBeaches()}>All beaches</Button>
     {props.options.map((option) => {
       return (
-        <Button href="#photos-link" aria-label="Filter location on map" className="filter-button" key={option.title} value={option.title} onClick={() => props.applyFilter(option.title)}>{option.title} {checkFlag(option)} </Button>
+        <Button href="#photos-link" aria-label="Filter location on map" className="filter-button" key={option.title}
+          value={option.title} onClick={() => props.applyFilter(option.title)}>{option.title} {checkFlag(option)} </Button>
       )
     })}
     </ButtonGroup>
