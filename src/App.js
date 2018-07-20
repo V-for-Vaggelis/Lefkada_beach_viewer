@@ -7,6 +7,7 @@ import scriptLoader from 'react-async-script-loader'
 import beaches from './beaches.json'
 import { Glyphicon, Button } from 'react-bootstrap';
 import beachIcon from './beach.png'
+import { Route, Link } from 'react-router-dom'
 
 class App extends Component {
   state = {
@@ -38,6 +39,9 @@ class App extends Component {
       });
       markers.push(marker);
       marker.addListener('click', function(e) {
+        app.setState(() => ({
+          place: beach.title
+        }))
         app.getPlaceDetails(marker, infoWindow, beach, map);
       })
     }
@@ -58,6 +62,7 @@ class App extends Component {
       app.createInfoWindow(marker, infoWindow, beach, map, place)
     }
   )
+
 }
 
 createInfoWindow = (marker, infoWindow, beach, map, place) => {
@@ -75,17 +80,20 @@ createInfoWindow = (marker, infoWindow, beach, map, place) => {
           innerHtml += '<br><br>Rating: <strong>' + place.rating + '/5</strong>'
         }
       }
-      innerHtml += '<br><br><Button id="photos-link"> View photos </Button> </div>'
+      let home = process.env.PUBLIC_URL;
+      innerHtml += '<br><br><button id="photos-link">View photos</button> </div>'
       infoWindow.setContent(innerHtml);
       infoWindow.open(map, marker);
       // Make sure the marker property is cleared if the infowindow is closed.
       document.getElementById("photos-link").addEventListener("click", function() {
+
         if (typeof(Storage) && localStorage[beach.title]) {
           let links = localStorage[beach.title].split(",");
           app.setState(() => ({
             pictures: links,
             modal: true,
             place: beach.title}));
+            app.activateLink();
             return;
           }
           if (photos.length > 0) {
@@ -109,6 +117,7 @@ createInfoWindow = (marker, infoWindow, beach, map, place) => {
                 modal: true,
                 place: beach.title
               }));
+              app.activateLink();
             });
           }
         ).catch(function(err) {
@@ -121,6 +130,11 @@ createInfoWindow = (marker, infoWindow, beach, map, place) => {
     }
   }
 
+  activateLink = () => {
+    let hiddenLink = document.querySelector('.hidden');
+    console.log(hiddenLink);
+    hiddenLink.click();
+  }
   hideModal = () => {
     this.setState(() => ({
       modal: false
@@ -134,6 +148,9 @@ createInfoWindow = (marker, infoWindow, beach, map, place) => {
     for (let marker of markers) {
       if (marker.title === locationName) {
         // If location was filtered out, this will show it again
+        app.setState(() => ({
+          place: marker.title
+        }))
         marker.setMap(this.state.map)
         marker.setAnimation(window.google.maps.Animation.BOUNCE);
         setTimeout(function () {
@@ -196,7 +213,7 @@ createInfoWindow = (marker, infoWindow, beach, map, place) => {
   render() {
     return (
       <div className="App">
-        {this.state.modal && (<ShowModal closeModal={this.hideModal} showInfo={this.state.modal} picsToRender={this.state.pictures} beach={this.state.place}/>)}
+        <Link to={`/photos/${this.state.place.replace(/\s/g, '_')}`} tabIndex="-1" className="hidden">can't see me</Link>
         <header>
           <Button name="Toggle" aria-label="Toggle Side Panel" className="toggle-filters" onClick={() => this.toggleAside()}>
             <Glyphicon glyph="menu-hamburger" />
@@ -219,6 +236,7 @@ createInfoWindow = (marker, infoWindow, beach, map, place) => {
               </section>
             </main>
             <footer>Powered by <a href="https://developers.google.com/maps/documentation/javascript/tutorial">Google maps</a> and <a href="https://www.flickr.com/">Flickr.</a></footer>
+            <Route path="/photos" render={({history}) => <ShowModal picsToRender={this.state.pictures} beach={this.state.place} history={history}/>} />
           </div>
         )
       }

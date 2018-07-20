@@ -5,7 +5,7 @@ import { Modal, Carousel, Image } from 'react-bootstrap';
 
 function ShowModal (props)  {
   return (
-    <Modal show={true} onHide={props.closeModal}>
+    <Modal show={true} onHide={() => {props.history.push("/");}}>
       <Carousel>
         {props.picsToRender.map((pic) => {
           // just a narrow image I want to avoid
