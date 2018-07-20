@@ -42,7 +42,11 @@ class App extends Component {
         app.setState(() => ({
           place: beach.title
         }))
+        marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        setTimeout(function () {
+          marker.setAnimation(null);
         app.renderInfoWindow(marker, infoWindow, beach, map);
+      }, 600)
       })
     }
     this.setState(() => ({
