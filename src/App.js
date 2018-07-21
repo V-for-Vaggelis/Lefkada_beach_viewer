@@ -78,7 +78,7 @@ fillInfoWindow = (marker, infoWindow, beach, map, place) => {
     // Check if the getDetails request has returned valid response
     if (place) {
       if (place.photos) {
-        innerHtml += '<br><br><img src="' + place.photos[0].getUrl(
+        innerHtml += '<br><br><img alt="a photo of ' + beach.title + '" src="' + place.photos[0].getUrl(
           {maxHeight: 200, maxWidth: 200}) + '">';
         }
         if (place.rating) {
