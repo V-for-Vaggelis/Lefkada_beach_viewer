@@ -20,6 +20,11 @@ class App extends Component {
     showAside: false
   }
 
+  // Handle invalid key on google maps script
+  gm_authFailure = () => {
+    window.alert("Google maps authentication error");
+  }
+
   initMap = () => {
     let app = this;
     let map = new window.google.maps.Map(document.getElementById('map'), {
@@ -45,8 +50,8 @@ class App extends Component {
         marker.setAnimation(window.google.maps.Animation.BOUNCE);
         setTimeout(function () {
           marker.setAnimation(null);
-        app.renderInfoWindow(marker, infoWindow, beach, map);
-      }, 600)
+          app.renderInfoWindow(marker, infoWindow, beach, map);
+        }, 600)
       })
     }
     this.setState(() => ({
@@ -202,6 +207,9 @@ fillInfoWindow = (marker, infoWindow, beach, map, place) => {
     }
   }
 
+  componentDidMount() {
+    window.gm_authFailure = this.gm_authFailure;
+  }
 
   /* Async load map idea from https://stackoverflow.com/questions/41709765/how-to-load-the-google-maps-api-script-in-my-react-app-only-when-it-is-require
   the component will receive this props from the async-load package, these inform if async-load succeeded or failed */
