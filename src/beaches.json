@@ -1,6 +1,6 @@
 [{"title":"Kathisma", "location": {"lat": 38.7767939, "lng": 20.600207599999976}, "flag": true, "filters": ["all beaches", "sky-parachute", "partly-organised"], "placeId":"ChIJi48QbrNMXBMRbava_ffK17o"},
 {"title":"Egremni", "location": {"lat": 38.6374903, "lng": 20.558387700000026}, "flag": false, "filters": ["all beaches", "unspoilt"], "placeId":"ChIJ-8nZQmawXRMRqKH2moaC9-k"},
-{"title":"Porto-katsiki", "location": {"lat": 38.6011744, "lng": 20.55033739999999}, "flag": true, "filters": ["all beaches", "organised", "unspoilt"], "placeId":"ChIJoQtyb-u6XRMR1miDSG-R5e8"},
+{"title":"Porto-katsiki", "location": {"lat": 38.6011744, "lng": 20.55033739999999}, "flag": true, "filters": ["all beaches", "partly-organised"], "placeId":"ChIJoQtyb-u6XRMR1miDSG-R5e8"},
 {"title":"Ponti beach Vasiliki", "location": {"lat": 38.632411, "lng": 20.595009}, "flag": false, "filters": ["all beaches", "windsurfing", "water-sports", "camping", "organised"], "placeId":"ChIJ09I8KrmwXRMRHyAMqVQEeLs"},
 {"title":"Agios Nikitas", "location": {"lat": 38.790081, "lng": 20.613406}, "flag": true, "filters": ["all beaches", "unspoilt"], "placeId":"ChIJe3uPsqFMXBMRidWzxkl2zAg"},
 {"title":"Agiofili beach", "location": {"lat": 38.605414, "lng": 20.612905}, "flag": false, "filters": ["all beaches", "unspoilt"], "placeId":"ChIJhb9DxAO6XRMRGi6gOTYBxPo"},

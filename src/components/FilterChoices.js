@@ -9,7 +9,6 @@ class FilterOptions extends Component  {
 
   // Filters options based on selected option from dropdown
   filterOptions = (filter) => {
-    console.log(filter)
     let filtered = this.props.options.filter((option) => {
       for (let word of option.filters) {
         if (word === filter) {
@@ -17,10 +16,14 @@ class FilterOptions extends Component  {
         }
       }
     })
-    console.log(filtered);
     this.setState(() => ({
       filtered: filtered
     }))
+    let filteredNames = [];
+    for (let f of filtered) {
+      filteredNames.push(f.title);
+    }
+    this.props.applyFilter(filteredNames);
   }
 
   // Adds a blue flag to rewarded beaches
@@ -49,7 +52,7 @@ class FilterOptions extends Component  {
         {this.state.filtered.map((option) => {
           return (
             <Button href="#photos-link" aria-label="Filter location on map" className="filter-button" key={option.title}
-              value={option.title} onClick={() => this.props.applyFilter(option.title)}>{option.title} {this.checkFlag(option)} </Button>
+              value={option.title} onClick={() => this.props.singleOutLocation(option.title)}>{option.title} {this.checkFlag(option)} </Button>
           )
         })}
       </ButtonGroup>

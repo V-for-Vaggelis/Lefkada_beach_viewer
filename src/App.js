@@ -178,13 +178,23 @@ fillInfoWindow = (marker, infoWindow, beach, map, place) => {
   }
 
   // Called when show all filter is clicked, restores all markers on the map and makes them bounce
-  showAllMarkers = () => {
+  keepFilteredBeaches = (filteredBeaches) => {
     for (let marker of this.state.markers) {
-      marker.setMap(this.state.map)
-      marker.setAnimation(window.google.maps.Animation.BOUNCE);
-      setTimeout(function () {
-        marker.setAnimation(null);
-      }, 600);
+      console.log(marker);
+      let match = false;
+      for (let filteredBeach of filteredBeaches) {
+        if (marker.title === filteredBeach) {
+          match = true;
+          marker.setMap(this.state.map)
+          marker.setAnimation(window.google.maps.Animation.BOUNCE);
+          setTimeout(function () {
+            marker.setAnimation(null);
+          }, 600);
+        }
+      }
+      if (!match) {
+        marker.setMap(null);
+      }
     }
   }
 
@@ -210,6 +220,7 @@ fillInfoWindow = (marker, infoWindow, beach, map, place) => {
     }
   }
 
+  // This will ensure authorization-fail handler gets invoked immediately
   componentDidMount() {
     window.gm_authFailure = this.gm_authFailure;
   }
@@ -247,7 +258,7 @@ fillInfoWindow = (marker, infoWindow, beach, map, place) => {
           </header>
           <main>
             <aside className={this.checkAsideDisplay()}>
-              <FilterOptions options={beaches} applyFilter={this.filterLocation} showAllBeaches={this.showAllMarkers}/>
+              <FilterOptions options={beaches} singleOutLocation={this.filterLocation} applyFilter={this.keepFilteredBeaches}/>
             </aside>
             <section id="map-container">
               <div id="map" role="application" style={{height:"90vh"}}>
