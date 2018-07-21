@@ -137,6 +137,10 @@ h1 {
   top: -3000px;
 }
 
+.option {
+  background: white;
+}
+
 @media screen and (min-width: 390px) {
   .toggle-filters {
     margin-top: 5%;
