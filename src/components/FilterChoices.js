@@ -16,7 +16,16 @@ class FilterOptions extends Component  {
   render () {
     return (
       <ButtonGroup id="group" aria-label="Show all locations on map" vertical>
-        <Button id="all-button" value="Show all" onClick={() => this.props.showAllBeaches()}>All beaches</Button>
+        <select id="filter-options" defaultValue="All beaches">
+          <option value="All beaches">All beaches</option>
+          <option value="organised">organised</option>
+          <option value="partly-organised">partly-organised</option>
+          <option value="untouched">untouched</option>
+          <option value="camping">camping</option>
+          <option value="water-sports">water-sports</option>
+          <option value="windsurfing">windsurfing</option>
+          <option value="sky-parachute">sky-parachute</option>
+        </select>
         {this.props.options.map((option) => {
           return (
             <Button href="#photos-link" aria-label="Filter location on map" className="filter-button" key={option.title}
