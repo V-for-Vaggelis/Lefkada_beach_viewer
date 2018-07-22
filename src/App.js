@@ -158,26 +158,26 @@ fillInfoWindow = (marker, infoWindow, beach, map, place) => {
     for (let marker of markers) {
       if (marker.title === locationName) {
         // If location was filtered out, this will show it again
-        app.setState(() => ({
+        /*app.setState(() => ({
           place: marker.title
         }))
         // Keep the clicked marker and make it bounce
-        marker.setMap(this.state.map)
+        marker.setMap(this.state.map)*/
+        let beach = beaches.filter((b) => b.title === locationName)
+        app.renderInfoWindow(marker, infoWindow, beach[0], app.state.map);
         marker.setAnimation(window.google.maps.Animation.BOUNCE);
         setTimeout(function () {
           marker.setAnimation(null);
-          let beach = beaches.filter((b) => b.title === locationName)
-          app.renderInfoWindow(marker, infoWindow, beach[0], app.state.map);
         }, 600);
       }
-      else {
+      /*else {
         // Remove all other markers
         marker.setMap(null)
-      }
+      }*/
     }
   }
 
-  // Called when show all filter is clicked, restores all markers on the map and makes them bounce
+  // Called a filter from dropdown menu is applied, filters those locations on the map
   keepFilteredBeaches = (filteredBeaches) => {
     for (let marker of this.state.markers) {
       console.log(marker);
