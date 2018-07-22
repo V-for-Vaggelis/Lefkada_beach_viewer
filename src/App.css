@@ -135,7 +135,7 @@ header {
 .dropdown-menu {
   position: fixed;
   width: 100px;
-  top: 15vh;
+  top: 10vh;
   left: 220px;
   /* display: block; */
 }

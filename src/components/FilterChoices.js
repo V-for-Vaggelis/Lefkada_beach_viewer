@@ -4,7 +4,8 @@ import { ButtonGroup, Button, ButtonToolbar, SplitButton, MenuItem } from 'react
 
 class FilterOptions extends Component  {
   state = {
-    filtered: this.props.options
+    filtered: this.props.options,
+    activeFilter: "all beaches"
   }
 
   // Filters options based on selected option from dropdown
@@ -40,7 +41,14 @@ class FilterOptions extends Component  {
     return (
       <div id="button-container">
         <ButtonToolbar id="filter-options">
-          <SplitButton title="Filter beaches" id="split-button-pull-right" pullRight onSelect={(val) => this.filterOptions(val)}>
+          <SplitButton value={this.state.activeFilter} title={this.state.activeFilter} id="split-button-pull-right" pullRight aria-role="Animates filtered locations" 
+            onClick={(e) => this.filterOptions(e.target.value)}
+            onSelect={(val) => {
+              this.filterOptions(val);
+              this.setState(() => ({
+                activeFilter: val
+              }))
+            }}>
             <MenuItem className="option"
               eventKey="all beaches">All beaches</MenuItem>
             <MenuItem className="option"
