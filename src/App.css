@@ -66,7 +66,7 @@ main {
 
 .filter-container {
   padding-top: 6px;
-  width: 220px;
+  width: 197px;
   background:#f1e4b0;
   overflow-y: auto;
   overflow-x: hidden;
@@ -119,6 +119,7 @@ header {
 .filter-button:focus {
   background-color: rgb(32, 223, 183);
 }
+
 #filter-options {
   position: relative;
   margin-bottom: 15px;
@@ -126,20 +127,35 @@ header {
 
 .dropdown {
   font-family: 'Atomic Age', cursive;
-  background: rgb(223, 153, 60);
   position: absolute;
   top: 0;
-  right: 10px;
+  right: 11px;
+}
+
+
+#split-button-pull-right, .dropdown > button, .dropdown > button:hover {
+  background: rgb(223, 153, 60);
 }
 
 .dropdown-menu {
   position: fixed;
-  width: 100px;
+  width: 40px;
   top: 10vh;
-  left: 220px;
+  left: 188px;
   /* display: block; */
 }
 
+.dropdown-menu > li > a:hover {
+  background: rgb(116, 219, 167);
+}
+
+#split-button-pull-right {
+  transform: rotate(-90deg);
+  padding-right: 12px;
+  padding-left: 11px;
+  margin-left: 1px;
+  border-radius: 0 0 5px 5px;
+}
 
 h1 {
   font-size: 2em;
@@ -151,18 +167,6 @@ h1 {
 .hidden {
   left: -3000px;
   top: -3000px;
-}
-
-.option {
-  background: white;
-}
-
-.option:hover {
-  background: green;
-}
-
-.option:focus {
-  background: green;
 }
 
 @media screen and (min-width: 390px) {
@@ -205,6 +209,10 @@ h1 {
   .filter-container {
     position: relative;
     left: 0;
+    width: 220px;
+  }
+  .dropdown-menu {
+    left: 198px;
   }
   #map-container {
     width: calc(100% - 220px);
