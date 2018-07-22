@@ -119,11 +119,27 @@ header {
 .filter-button:focus {
   background-color: rgb(32, 223, 183);
 }
-
 #filter-options {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.dropdown {
   font-family: 'Atomic Age', cursive;
   background: rgb(223, 153, 60);
+  position: absolute;
+  top: 0;
+  right: 10px;
 }
+
+.dropdown-menu {
+  position: fixed;
+  width: 100px;
+  top: 15vh;
+  left: 220px;
+  /* display: block; */
+}
+
 
 h1 {
   font-size: 2em;
@@ -139,6 +155,14 @@ h1 {
 
 .option {
   background: white;
+}
+
+.option:hover {
+  background: green;
+}
+
+.option:focus {
+  background: green;
 }
 
 @media screen and (min-width: 390px) {

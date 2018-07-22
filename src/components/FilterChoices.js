@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { ButtonGroup, Button } from 'react-bootstrap';
+import { ButtonGroup, Button, ButtonToolbar, SplitButton, MenuItem } from 'react-bootstrap';
 
 class FilterOptions extends Component  {
   state = {
@@ -38,26 +38,38 @@ class FilterOptions extends Component  {
 
   render () {
     return (
-      <ButtonGroup id="group" aria-label="Show all locations on map" vertical>
-        <select id="filter-options" defaultValue="All beaches" onChange={(e) => this.filterOptions(e.target.value)}>
-          <option className="option" value="all beaches">all beaches</option>
-          <option className="option" value="organised">organised</option>
-          <option className="option" value="partly-organised">partly-organised</option>
-          <option className="option" value="unspoilt">unspoilt</option>
-          <option className="option" value="camping">camping</option>
-          <option className="option" value="water-sports">water-sports</option>
-          <option className="option" value="windsurfing">windsurfing</option>
-          <option className="option" value="sky-parachute">sky-parachute</option>
-        </select>
-        {this.state.filtered.map((option) => {
-          return (
-            <Button href="#photos-link" aria-label="Filter location on map" className="filter-button" key={option.title}
-              value={option.title} onClick={() => this.props.singleOutLocation(option.title)}>{option.title} {this.checkFlag(option)} </Button>
-          )
-        })}
-      </ButtonGroup>
-    )
+      <div id="button-container">
+        <ButtonToolbar id="filter-options">
+          <SplitButton title="Filter beaches" id="split-button-pull-right" pullRight onSelect={(val) => this.filterOptions(val)}>
+            <MenuItem className="option"
+              eventKey="all beaches">All beaches</MenuItem>
+            <MenuItem className="option"
+              eventKey="organised">Organised</MenuItem>
+            <MenuItem className="option"
+              eventKey="partly-organised">Partly-organised</MenuItem>
+            <MenuItem className="option"
+              eventKey="unspoilt">Unspoilt</MenuItem>
+            <MenuItem className="option"
+              eventKey="camping">Camping</MenuItem>
+            <MenuItem className="option"
+              eventKey="water-sports">Water-sports</MenuItem>
+            <MenuItem className="option"
+              eventKey="windsurfing">Windsurfing</MenuItem>
+            <MenuItem className="option"
+              eventKey="sky-parachute">Sky-parachute</MenuItem>
+          </SplitButton>;
+          </ ButtonToolbar>
+          <ButtonGroup id="group" aria-label="Show all locations on map" vertical>
+            {this.state.filtered.map((option) => {
+              return (
+                <Button href="#photos-link" aria-label="Filter location on map" className="filter-button" key={option.title}
+                  value={option.title} onClick={() => this.props.singleOutLocation(option.title)}>{option.title} {this.checkFlag(option)} </Button>
+              )
+            })}
+          </ButtonGroup>
+        </div>
+      )
+    }
   }
-}
 
-export default FilterOptions
+  export default FilterOptions
