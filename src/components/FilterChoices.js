@@ -41,7 +41,7 @@ class FilterOptions extends Component  {
     return (
       <div id="button-container">
         <ButtonToolbar id="filter-options">
-          <SplitButton value={this.state.activeFilter} title={this.state.activeFilter} id="split-button-pull-right" pullRight aria-label="Animates filtered locations" 
+          <SplitButton value={this.state.activeFilter} title={this.state.activeFilter} id="split-button-pull-right" pullRight aria-label="Restores filtered locations" 
             onClick={(e) => this.filterOptions(e.target.value)}
             onSelect={(val) => {
               this.filterOptions(val);

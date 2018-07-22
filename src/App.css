@@ -133,7 +133,7 @@ header {
 }
 
 
-#split-button-pull-right, .dropdown > button, .dropdown > button:hover {
+#split-button-pull-right, .dropdown > button, .dropdown > button:hover, .dropdown > button:focus {
   background: rgb(223, 153, 60);
 }
 
