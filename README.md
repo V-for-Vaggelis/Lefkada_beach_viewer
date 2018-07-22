@@ -26,7 +26,7 @@ To run the app you have two options:
 
 ## How to use
 
-It should be pretty easy to get around. Pick a location by clicking on the map's markers or by selecting it from the filter list on the left. If you are on a phone or tablet the list probably won't be visible by default. Click on the burger icon on the top left to make it appear. Click the **view photos** button on the pop-up window and enjoy some beautiful images.
+It should be pretty easy to get around. Pick a location by clicking on the map's markers or by selecting it from the list on the left. You can also filter the list of locations to your desired results with the dropdown menu. If you are on a phone or tablet the list probably won't be visible by default. Click on the burger icon on the top left to make it appear. Click the **view photos** button on the pop-up window and enjoy some beautiful images.
 
 ## Code dependencies
 
