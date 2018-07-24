@@ -247,7 +247,7 @@ fillInfoWindow = (marker, infoWindow, beach, map, place) => {
       <div className="App">
         {/* We can't use the Link component inside the infoWindow of google maps API, so we create a hidden link, and we trigger
           it when another event happens, in this case a click to a regular button (inside the infoWindow)*/}
-          <Link to={`/photos/${this.state.place.replace(/\s/g, '_')}`} tabIndex="-1" className="hidden">can't see me</Link>
+          <Link to={`${process.env.PUBLIC_URL}/photos/${this.state.place.replace(/\s/g, '_')}`} tabIndex="-1" className="hidden">can't see me</Link>
           <header>
             <Button name="Toggle" aria-label="Toggle Side Panel" className="toggle-filters" onClick={() => this.toggleAside()}>
               <Glyphicon glyph="menu-hamburger" />
@@ -271,7 +271,7 @@ fillInfoWindow = (marker, infoWindow, beach, map, place) => {
                 </section>
               </main>
               <footer>Powered by <a href="https://developers.google.com/maps/documentation/javascript/tutorial">Google maps</a> and <a href="https://www.flickr.com/">Flickr.</a></footer>
-              <Route path="/photos" render={({history}) => <ShowModal picsToRender={this.state.pictures} beach={this.state.place} history={history}/>} />
+              <Route path={`${process.env.PUBLIC_URL}/photos`} render={({history}) => <ShowModal picsToRender={this.state.pictures} beach={this.state.place} history={history}/>} />
             </div>
           )
         }

@@ -8,7 +8,11 @@ function ShowModal (props)  {
   let name;
   // If user refreshes while on the modal link, this will help show the images again
   if (props.picsToRender.length === 0) {
-    let activeBeach = window.location.href.slice(`http://localhost:3000/photos/`.length).replace(/_/g, ' ');
+    let constPart = `${process.env.PUBLIC_URL}/photos/`;
+    console.log(constPart);
+    let slicedPart = window.location.href.slice(constPart.length);
+    console.log(slicedPart);
+    let activeBeach = slicedPart.replace(/_/g, ' ');
     if (typeof(Storage) && localStorage[activeBeach]) {
       pics = localStorage[activeBeach].split(",");
     }
@@ -19,7 +23,7 @@ function ShowModal (props)  {
     name = props.beach;
   }
   return (
-    <Modal show={true} onHide={() => {props.history.push("/");}}>
+    <Modal show={true} onHide={() => {props.history.push(`${process.env.PUBLIC_URL}/`);}}>
       <Carousel>
         {pics.map((pic) => {
           // just a narrow image I want to avoid showing

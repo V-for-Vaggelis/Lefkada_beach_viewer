@@ -41,7 +41,7 @@ class FilterOptions extends Component  {
     return (
       <div id="button-container">
         <ButtonToolbar id="filter-options">
-          <SplitButton value={this.state.activeFilter} title={this.state.activeFilter} id="split-button-pull-right" pullRight aria-label="Restores filtered locations" 
+          <SplitButton value={this.state.activeFilter} title={this.state.activeFilter} id="split-button-pull-right" pullRight aria-label="Restores filtered locations"
             onClick={(e) => this.filterOptions(e.target.value)}
             onSelect={(val) => {
               this.filterOptions(val);
@@ -70,7 +70,7 @@ class FilterOptions extends Component  {
           <ButtonGroup id="group" aria-label="Show all locations on map" vertical>
             {this.state.filtered.map((option) => {
               return (
-                <Button href="#photos-link" aria-label="Filter location on map" className="filter-button" key={option.title}
+                <Button aria-label="Filter location on map" className="filter-button" key={option.title}
                   value={option.title} onClick={() => this.props.singleOutLocation(option.title)}>{option.title} {this.checkFlag(option)} </Button>
               )
             })}
