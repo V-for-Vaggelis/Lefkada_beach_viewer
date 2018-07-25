@@ -8,11 +8,16 @@ function ShowModal (props)  {
   let name;
   // If user refreshes while on the modal link, this will help show the images again
   if (props.picsToRender.length === 0) {
-    let constPart = `${process.env.PUBLIC_URL}/photos/`;
-    console.log(constPart);
-    let slicedPart = window.location.href.slice(constPart.length);
-    console.log(slicedPart);
-    let activeBeach = slicedPart.replace(/_/g, ' ');
+    let link = window.location.href;
+    // If I replace / with ' inside the link I create some substring that are easy to search for
+    let changedLink = link.replace(/\//g, "'");
+    // Search for substring 'photos' which initially was /photos/, that's a good start to pul the beache's name
+    let photosStart = changedLink.indexOf("photos");
+    let photosEnd = photosStart + 7;
+    // Find where the part /photos/ of the link ends, and slice the rest of the link
+    let beachName = link.slice(photosEnd);
+    // Replace underscores with gaps in the name cause that's how hardcoded names are saved in the code
+    let activeBeach = beachName.replace(/_/g, ' ');
     if (typeof(Storage) && localStorage[activeBeach]) {
       pics = localStorage[activeBeach].split(",");
     }
