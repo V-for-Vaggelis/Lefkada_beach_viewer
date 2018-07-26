@@ -4,22 +4,17 @@ Lefkada beach viewer is an app, that presents the Greek Ionian island of Lefkada
 
 ## How to run
 
+#### Production build (recommended)
+
+Using <a href="https://v-for-vaggelis.github.io/Lefkada_beach_viewer/">this live page</a> is recommended
+
+#### Development build
+
 navigate in the directory you want to place the app and:
 
 * clone the current repository: `git clone https://github.com/V-for-Vaggelis/Lefkada_beach_viwer`
 * navigate in the project's repository `cd Lefkada_beach_viwer`
 * install all project dependencies with `npm install`
-
-To run the app you have two options:
-
-#### Production build (recommended)
-
-* npm run build
-* serve -s build
-* navigate to http://localhost:5000/ on your browser
-
-#### Development build
-
 * start the hosting server with `npm start`
 
 **Note that the service worker is only implemented during production build**.
